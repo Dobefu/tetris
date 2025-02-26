@@ -1,6 +1,22 @@
 {
-	"dependencies": {
-		"@tresjs/core": "^4.3.3",
-		"three": "^0.173.0"
-	}
+  "name": "tetris",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@tresjs/cientos": "^4.1.0",
+    "@tresjs/nuxt": "^3.0.8",
+    "@tresjs/post-processing": "^2.1.0",
+    "nuxt": "^3.15.4",
+    "three": "^0.173.0",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "packageManager": "pnpm@10.1.0+sha512.c89847b0667ddab50396bbbd008a2a43cf3b581efd59cf5d9aa8923ea1fb4b8106c041d540d08acb095037594d73ebc51e1ec89ee40c88b30b8a66c0fae0ac1b"
 }
