@@ -1,1 +1,1 @@
-export type TetrominoType = 'I' | 'O' | 'T' | 'L' | 'J' | 'S' | 'Z'
+export type TetrominoType = 'I' | 'O' | 'T' | 'J' | 'L' | 'S' | 'Z'

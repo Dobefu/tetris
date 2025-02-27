@@ -9,9 +9,9 @@
     cast-shadow
     :position="[-5, 10, 10]"
     :look-at="[0, 0, 0]"
-    :intensity="1"
+    :intensity="0.5"
   />
 
   <Board />
-  <TetrominoBlock :position="[0, 0, 0]" />
+  <Tetromino :position="[0, 0, 0]" type="I" />
 </template>
