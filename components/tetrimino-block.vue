@@ -1,12 +1,10 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    position?: Vector3;
+    position?: Vector3
   }>(),
-  {
-    position: [0, 0, 0],
-  },
-);
+  { position: [0, 0, 0] },
+)
 </script>
 
 <template>
