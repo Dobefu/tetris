@@ -73,11 +73,13 @@ const blockCoords = computed<Vector3[]>(() => {
 
 <template>
   <TresGroup :position="position">
-    <TetrominoBlock
-      v-for="blockCoord in blockCoords"
-      :key="blockCoord"
-      :position="blockCoord"
-      :type="type"
-    />
+    <Suspense>
+      <TetrominoBlock
+        v-for="blockCoord in blockCoords"
+        :key="blockCoord"
+        :position="blockCoord"
+        :type="type"
+      />
+    </Suspense>
   </TresGroup>
 </template>

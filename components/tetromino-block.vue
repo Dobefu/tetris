@@ -29,11 +29,20 @@ const color = computed(() => {
       return '#fff'
   }
 })
+
+const texture = await useTexture({
+  map: '/tetromino-block.png',
+  normalMap: '/tetromino-block_normal.png',
+})
 </script>
 
 <template>
   <TresMesh cast-shadow :position="position">
     <TresBoxGeometry />
-    <TresMeshToonMaterial :color="color" />
+    <TresMeshMatcapMaterial
+      :color="color"
+      :map="texture.map"
+      :normal-map="texture.normalMap"
+    />
   </TresMesh>
 </template>
