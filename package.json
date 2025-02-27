@@ -1,15 +1,16 @@
 {
   "name": "tetris",
-  "private": true,
   "type": "module",
+  "private": true,
+  "packageManager": "pnpm@10.1.0+sha512.c89847b0667ddab50396bbbd008a2a43cf3b581efd59cf5d9aa8923ea1fb4b8106c041d540d08acb095037594d73ebc51e1ec89ee40c88b30b8a66c0fae0ac1b",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "prettier . --check",
-    "lint:fix": "prettier . --write"
+    "lint": "eslint . && prettier . --check",
+    "lint:fix": "eslint . --fix && prettier . --write"
   },
   "dependencies": {
     "@tresjs/cientos": "^4.1.0",
@@ -20,8 +21,11 @@
     "vue": "latest",
     "vue-router": "latest"
   },
-  "packageManager": "pnpm@10.1.0+sha512.c89847b0667ddab50396bbbd008a2a43cf3b581efd59cf5d9aa8923ea1fb4b8106c041d540d08acb095037594d73ebc51e1ec89ee40c88b30b8a66c0fae0ac1b",
   "devDependencies": {
-    "prettier": "^3.5.2"
+    "@antfu/eslint-config": "^4.3.0",
+    "@nuxt/eslint": "^1.1.0",
+    "eslint": "^9.21.0",
+    "prettier": "^3.5.2",
+    "typescript": "^5.7.3"
   }
 }
