@@ -1,17 +1,12 @@
-<script setup lang="ts"></script>
-
 <template>
-  <TresCanvas clear-color="#000" preset="realistic" shadows window-size>
+  <TresCanvas clear-color="#000" shadows window-size render-mode="on-demand">
     <TresPerspectiveCamera :position="[0, 0, 50]" :look-at="[0, 0, 0]" />
 
-    <TresMesh cast-shadow :position="[0, 0, 0]">
-      <TresBoxGeometry />
-      <TresMeshPhongMaterial color="gray" />
-    </TresMesh>
+    <TetriminoBlock :position="[0, 0, 0]" />
 
     <TresMesh receive-shadow :scale="[10, 20, 1]" :position="[0, 0, -1]">
       <TresPlaneGeometry />
-      <TresMeshPhongMaterial color="gray" />
+      <TresMeshToonMaterial color="lightgray" />
     </TresMesh>
 
     <OrbitControls />
