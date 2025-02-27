@@ -4,10 +4,7 @@
 
     <TetriminoBlock :position="[0, 0, 0]" />
 
-    <TresMesh receive-shadow :scale="[10, 20, 1]" :position="[0, 0, -0.5]">
-      <TresPlaneGeometry />
-      <TresMeshToonMaterial color="lightgray" />
-    </TresMesh>
+    <Board />
 
     <OrbitControls />
 
