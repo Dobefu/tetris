@@ -13,5 +13,5 @@
   />
 
   <Board />
-  <TetriminoBlock :position="[0, 0, 0]" />
+  <TetrominoBlock :position="[0, 0, 0]" />
 </template>
