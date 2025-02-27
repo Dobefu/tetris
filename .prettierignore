@@ -1,0 +1,10 @@
+# Build artifacts.
+build/
+coverage/
+
+# GitHub config files.
+.github/
+
+# Package manager lockfiles.
+pnpm-lock.yaml
+package-lock.yml

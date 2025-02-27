@@ -7,7 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "prettier . --check",
+    "lint:fix": "prettier . --write"
   },
   "dependencies": {
     "@tresjs/cientos": "^4.1.0",
