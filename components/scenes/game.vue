@@ -7,9 +7,14 @@
   <TresAmbientLight :intensity="0.25" />
   <TresDirectionalLight
     cast-shadow
+    :shadow-mapSize="[640, 1280]"
+    :shadow-camera-top="10"
+    :shadow-camera-bottom="-10"
+    :shadow-camera-left="-6"
+    :shadow-camera-right="6"
     :position="[-5, 10, 10]"
     :look-at="[0, 0, 0]"
-    :intensity="0.25"
+    :intensity="0.5"
   />
 
   <Board />

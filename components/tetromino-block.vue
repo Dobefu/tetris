@@ -37,9 +37,9 @@ const texture = await useTexture({
 </script>
 
 <template>
-  <TresMesh cast-shadow :position="position">
+  <TresMesh cast-shadow receive-shadow :position="position">
     <TresBoxGeometry />
-    <TresMeshMatcapMaterial
+    <TresMeshStandardMaterial
       :color="color"
       :map="texture.map"
       :normal-map="texture.normalMap"
