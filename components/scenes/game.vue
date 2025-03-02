@@ -20,6 +20,8 @@ onBeforeRender(({ delta }) => {
   if (dropTimer.value >= 1 && currentTetromino) {
     if (canTetrominoMove(currentTetromino, 0, 1, board)) {
       currentTetromino.y += 1
+    } else {
+      currentTetromino.isGrounded = true
     }
 
     dropTimer.value = 0
@@ -50,6 +52,6 @@ onBeforeRender(({ delta }) => {
   <Tetromino
     v-if="currentTetromino"
     :tetromino="currentTetromino"
-    :delta-y="dropTimer"
+    :delta-y="currentTetromino.isGrounded ? 1 : dropTimer"
   />
 </template>

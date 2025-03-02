@@ -8,6 +8,7 @@ export function getNewTetromino(): Tetromino {
     y: 19,
     type: 'I' as TetrominoTypes,
     rotation: 0,
+    isGrounded: false,
     color: tetrominos.I.color,
     cells: [...tetrominos.I.cellCoords],
   }
