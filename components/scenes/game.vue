@@ -1,7 +1,20 @@
 <script setup lang="ts">
-const boardCells = reactive(
-  Array.from({ length: 40 }, () => Array.from({ length: 10 }, () => null)),
-)
+import type { Tetromino } from '~/types/tetromino'
+
+let currentTetromino = reactive<Tetromino | object>({})
+
+function getNewTetromino() {
+  currentTetromino = {
+    x: 3,
+    y: 19,
+    type: 'I',
+    rotation: 0,
+  }
+}
+
+onMounted(() => {
+  getNewTetromino()
+})
 </script>
 
 <template>
@@ -22,5 +35,15 @@ const boardCells = reactive(
   />
 
   <Board />
-  <Tetromino :position="[0, 4.5, 0]" type="I" />
+
+  <!-- Current tetromino -->
+  <Tetromino
+    v-if="'type' in currentTetromino"
+    :position="[
+      currentTetromino.x - 5 + 0.5,
+      -currentTetromino.y + 30 + 0.5,
+      0,
+    ]"
+    :type="currentTetromino.type"
+  />
 </template>
