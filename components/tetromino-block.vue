@@ -14,7 +14,11 @@ const texture = await useTexture({
 </script>
 
 <template>
-  <TresMesh cast-shadow receive-shadow :position="position">
+  <TresMesh
+    cast-shadow
+    receive-shadow
+    :position="[position[0] - 5 + 0.5, -position[1] + 30 + 0.5, position[2]]"
+  >
     <TresBoxGeometry />
     <TresMeshStandardMaterial
       :color="color"

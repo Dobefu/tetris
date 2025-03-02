@@ -1,10 +1,12 @@
+import type { ShallowRef } from 'vue'
 import type { Tetromino } from '~/types/tetromino'
+import type { TetrominoTypes } from '~/types/tetromino-types'
 
 export function canTetrominoMove(
   tetromino: Tetromino,
   deltaX: number,
   deltaY: number,
-  board: (number | null)[][],
+  board: ShallowRef<TetrominoTypes | null>[][],
 ) {
   if (!tetromino) {
     return false

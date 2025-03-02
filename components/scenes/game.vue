@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import type { Reactive, ShallowRef } from 'vue'
 import type { Tetromino } from '~/types/tetromino'
+import type { TetrominoTypes } from '~/types/tetromino-types'
+import { tetrominos } from '~/objects/tetrominos'
 
 const currentTetromino: ShallowRef<Reactive<Tetromino>> = shallowRef(
   reactive(getNewTetromino()),
 )
 const dropTimer = shallowRef(0)
-const board: (number | null)[][] = Array.from({ length: 40 }, () =>
-  Array.from({ length: 10 }, () => null),
+const board: ShallowRef<TetrominoTypes | null>[][] = Array.from(
+  { length: 40 },
+  () => Array.from({ length: 10 }, () => shallowRef(null)),
 )
 
 const { onBeforeRender } = useLoop()
@@ -30,6 +33,12 @@ onBeforeRender(({ delta }) => {
       currentTetromino.value.lockTime += delta
 
       if (currentTetromino.value.lockTime >= 0.5) {
+        for (const cellCoords of currentTetromino.value.cells) {
+          board[currentTetromino.value.y + cellCoords[1]][
+            currentTetromino.value.x + cellCoords[0]
+          ].value = currentTetromino.value.type as TetrominoTypes
+        }
+
         currentTetromino.value = reactive(getNewTetromino())
         dropTimer.value = 0
       }
@@ -58,9 +67,23 @@ onBeforeRender(({ delta }) => {
 
   <Board />
 
-  <!-- Current tetromino -->
+  <Suspense>
+    <TresGroup name="Fallen tetrominos">
+      <template v-for="(boardRow, y) of board" :key="y">
+        <template v-for="(_, x) of boardRow" :key="x">
+          <TetrominoBlock
+            v-if="board[y][x].value"
+            :color="tetrominos[board[y][x].value].color"
+            :position="[x, y + 1, 0]"
+          />
+        </template>
+      </template>
+    </TresGroup>
+  </Suspense>
+
   <Tetromino
     v-if="currentTetromino"
+    name="Current tetromino"
     :tetromino="currentTetromino"
     :delta-y="currentTetromino.isGrounded ? 1 : dropTimer"
   />

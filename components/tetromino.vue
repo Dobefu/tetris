@@ -11,9 +11,7 @@ withDefaults(
 </script>
 
 <template>
-  <TresGroup
-    :position="[tetromino.x - 5 + 0.5, -tetromino.y + 30 + 0.5 - deltaY, 0]"
-  >
+  <TresGroup :position="[tetromino.x, -tetromino.y - deltaY, 0]">
     <Suspense>
       <TetrominoBlock
         v-for="cellPosition in tetromino.cells"
