@@ -1,84 +1,22 @@
 <script setup lang="ts">
-import type { TetrominoType } from '~/types/tetromino-type'
+import type { Tetromino } from '~/types/tetromino'
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
-    position?: Vector3
-    type: TetrominoType
+    tetromino: Tetromino
   }>(),
-  { position: [0, 0, 0] },
+  {},
 )
-
-const blockCoords = computed<Vector3[]>(() => {
-  switch (props.type) {
-    case 'I':
-      return [
-        [3, 0, 0],
-        [2, 0, 0],
-        [1, 0, 0],
-        [0, 0, 0],
-      ]
-    case 'O':
-      return [
-        [0, 0, 0],
-        [1, 0, 0],
-        [0, 1, 0],
-        [1, 1, 0],
-      ]
-    case 'T':
-      return [
-        [2, 1, 0],
-        [0, 1, 0],
-        [1, 0, 0],
-        [1, 1, 0],
-      ]
-    case 'J':
-      return [
-        [1, 2, 0],
-        [1, 1, 0],
-        [1, 0, 0],
-        [0, 0, 0],
-      ]
-    case 'L':
-      return [
-        [0, 2, 0],
-        [0, 1, 0],
-        [0, 0, 0],
-        [1, 0, 0],
-      ]
-    case 'S':
-      return [
-        [1, 1, 0],
-        [2, 1, 0],
-        [1, 0, 0],
-        [0, 0, 0],
-      ]
-    case 'Z':
-      return [
-        [1, 1, 0],
-        [0, 1, 0],
-        [1, 0, 0],
-        [2, 0, 0],
-      ]
-    default:
-      return [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0],
-      ]
-  }
-})
 </script>
 
 <template>
-  <TresGroup :position="position">
+  <TresGroup :position="[tetromino.x - 5 + 0.5, -tetromino.y + 30 + 0.5, 0]">
     <Suspense>
       <TetrominoBlock
-        v-for="blockCoord in blockCoords"
-        :key="blockCoord"
-        :position="blockCoord"
-        :type="type"
+        v-for="cellPosition in tetromino.cells"
+        :key="cellPosition"
+        :position="cellPosition"
+        :color="tetromino.color"
       />
     </Suspense>
   </TresGroup>

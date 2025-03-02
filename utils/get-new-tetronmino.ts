@@ -1,11 +1,14 @@
 import type { Tetromino } from '~/types/tetromino'
-import type { TetrominoType } from '~/types/tetromino-type'
+import type { TetrominoTypes } from '~/types/tetromino-types'
+import { tetrominos } from '~/objects/tetrominos'
 
 export function getNewTetromino(): Tetromino {
   return {
     x: 3,
     y: 19,
-    type: 'I' as TetrominoType,
+    type: 'I' as TetrominoTypes,
     rotation: 0,
+    color: tetrominos.I.color,
+    cells: [...tetrominos.I.cellCoords],
   }
 }

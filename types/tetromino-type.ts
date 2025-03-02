@@ -1,1 +1,4 @@
-export type TetrominoType = 'I' | 'O' | 'T' | 'J' | 'L' | 'S' | 'Z'
+export interface TetrominoType {
+  color: string
+  cellCoords: Vector3[]
+}

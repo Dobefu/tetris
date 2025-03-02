@@ -15,7 +15,10 @@ onBeforeRender(({ delta }) => {
   dropTimer.value += delta
 
   if (dropTimer.value >= 1 && currentTetromino) {
-    currentTetromino.y += 1
+    if (canTetrominoMove(currentTetromino, 0, 1)) {
+      currentTetromino.y += 1
+    }
+
     dropTimer.value = 0
   }
 })
@@ -41,13 +44,5 @@ onBeforeRender(({ delta }) => {
   <Board />
 
   <!-- Current tetromino -->
-  <Tetromino
-    v-if="currentTetromino"
-    :position="[
-      currentTetromino.x - 5 + 0.5,
-      -currentTetromino.y + 30 + 0.5 - dropTimer,
-      0,
-    ]"
-    :type="currentTetromino.type"
-  />
+  <Tetromino v-if="currentTetromino" :tetromino="currentTetromino" />
 </template>
