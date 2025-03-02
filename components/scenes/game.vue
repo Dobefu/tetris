@@ -39,11 +39,40 @@ function rotateCurrentTetromino() {
     ...tetrominos[currentTetromino.value.type].cellCoords[newRotation],
   ]
 
-  if (canTetrominoMove(rotatedTetromino, 0, 0, board)) {
-    currentTetromino.value.rotation = newRotation
-    currentTetromino.value.cells = rotatedTetromino.cells
+  for (let x = 0; x < 3; x++) {
+    for (let y = 0; y < 3; y++) {
+      if (canTetrominoMove(rotatedTetromino, x, y, board)) {
+        currentTetromino.value.rotation = newRotation
+        currentTetromino.value.cells = rotatedTetromino.cells
 
-    moveCurrentTetromino(0, 0)
+        moveCurrentTetromino(x, y)
+        return
+      }
+    }
+  }
+
+  for (let x = 0; x < 3; x++) {
+    for (let y = 0; y < 3; y++) {
+      if (canTetrominoMove(rotatedTetromino, x, -y, board)) {
+        currentTetromino.value.rotation = newRotation
+        currentTetromino.value.cells = rotatedTetromino.cells
+
+        moveCurrentTetromino(x, -y)
+        return
+      }
+    }
+  }
+
+  for (let x = 0; x < 3; x++) {
+    for (let y = 0; y < 3; y++) {
+      if (canTetrominoMove(rotatedTetromino, -x, -y, board)) {
+        currentTetromino.value.rotation = newRotation
+        currentTetromino.value.cells = rotatedTetromino.cells
+
+        moveCurrentTetromino(-x, -y)
+        return
+      }
+    }
   }
 }
 
