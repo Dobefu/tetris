@@ -18,6 +18,17 @@ const board: ShallowRef<TetrominoTypes | null>[][] = Array.from(
   () => Array.from({ length: 10 }, () => shallowRef(null)),
 )
 
+function moveCurrentTetromino(deltaX: number, deltaY: number) {
+  currentTetromino.value.x += deltaX
+  currentTetromino.value.y += deltaY
+  currentTetromino.value.lockTime = 0
+
+  if (canTetrominoMove(currentTetromino.value, 0, 1, board)) {
+    currentTetromino.value.isGrounded = false
+    dropTimer.value = 1
+  }
+}
+
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ delta }) => {
@@ -65,7 +76,7 @@ onBeforeRender(({ delta }) => {
     if (isKeyDown('ArrowLeft')) {
       if (moveTimerLeft <= 0) {
         if (canTetrominoMove(currentTetromino.value, -1, 0, board)) {
-          currentTetromino.value.x -= 1
+          moveCurrentTetromino(-1, 0)
         }
 
         moveTimerLeft = 0.2
@@ -79,8 +90,7 @@ onBeforeRender(({ delta }) => {
     if (isKeyDown('ArrowRight')) {
       if (moveTimerRight <= 0) {
         if (canTetrominoMove(currentTetromino.value, 1, 0, board)) {
-          currentTetromino.value.x += 1
-          currentTetromino.value.lockTime = 0
+          moveCurrentTetromino(1, 0)
         }
 
         moveTimerRight = 0.2
@@ -97,8 +107,7 @@ onBeforeRender(({ delta }) => {
 
     if (isKeyDown(' ')) {
       while (canTetrominoMove(currentTetromino.value, 0, 1, board)) {
-        currentTetromino.value.y += 1
-        currentTetromino.value.lockTime = 0
+        moveCurrentTetromino(0, 1)
       }
 
       dropTimer.value = 1
