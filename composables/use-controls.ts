@@ -82,6 +82,8 @@ function mapInputs(key: string): string {
       return 'ArrowLeft'
     case 'd':
       return 'ArrowRight'
+    case 's':
+      return 'ArrowDown'
     case 'F1':
       return 'Escape'
     default:

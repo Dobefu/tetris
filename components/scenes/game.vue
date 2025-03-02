@@ -89,6 +89,10 @@ onBeforeRender(({ delta }) => {
     } else {
       moveTimerRight = 0
     }
+
+    if (isKeyDown('ArrowDown')) {
+      dropTimer.value += 0.25
+    }
   }
 })
 </script>
