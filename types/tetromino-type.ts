@@ -1,4 +1,4 @@
 export interface TetrominoType {
   color: string
-  cellCoords: Vector3[]
+  cellCoords: Vector3[][]
 }

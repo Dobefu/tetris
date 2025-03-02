@@ -4,7 +4,7 @@ import type { Tetromino } from '~/types/tetromino'
 import type { TetrominoTypes } from '~/types/tetromino-types'
 import { tetrominos } from '~/objects/tetrominos'
 
-const { isKeyDown } = useControls()
+const { isKeyDown, isKeyPressed } = useControls()
 let moveTimerLeft = 0
 let moveTimerRight = 0
 
@@ -27,6 +27,16 @@ function moveCurrentTetromino(deltaX: number, deltaY: number) {
     currentTetromino.value.isGrounded = false
     dropTimer.value = 1
   }
+}
+
+function rotateCurrentTetromino() {
+  const newRotation = (currentTetromino.value.rotation + 1) % 4
+
+  currentTetromino.value.rotation = newRotation
+  currentTetromino.value.cells = [
+    ...tetrominos[currentTetromino.value.type].cellCoords[newRotation],
+  ]
+  // moveCurrentTetromino(0, 0)
 }
 
 const { onBeforeRender } = useLoop()
@@ -103,6 +113,10 @@ onBeforeRender(({ delta }) => {
 
     if (isKeyDown('ArrowDown')) {
       dropTimer.value += 0.25
+    }
+
+    if (isKeyPressed('ArrowUp')) {
+      rotateCurrentTetromino()
     }
 
     if (isKeyDown(' ')) {
