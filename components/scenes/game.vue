@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import type { Reactive } from 'vue'
+import type { Reactive, ShallowRef } from 'vue'
 import type { Tetromino } from '~/types/tetromino'
 
-let currentTetromino: Reactive<Tetromino> | undefined
+const currentTetromino: ShallowRef<Reactive<Tetromino>> = shallowRef(
+  reactive(getNewTetromino()),
+)
 const dropTimer = shallowRef(0)
 const board: (number | null)[][] = Array.from({ length: 40 }, () =>
   Array.from({ length: 10 }, () => null),
@@ -10,21 +12,30 @@ const board: (number | null)[][] = Array.from({ length: 40 }, () =>
 
 const { onBeforeRender } = useLoop()
 
-onMounted(() => {
-  currentTetromino = reactive(getNewTetromino())
-})
-
 onBeforeRender(({ delta }) => {
   dropTimer.value += delta
 
-  if (dropTimer.value >= 1 && currentTetromino) {
-    if (canTetrominoMove(currentTetromino, 0, 1, board)) {
-      currentTetromino.y += 1
-    } else {
-      currentTetromino.isGrounded = true
+  if (currentTetromino.value) {
+    if (dropTimer.value >= 1) {
+      if (canTetrominoMove(currentTetromino.value, 0, 1, board)) {
+        currentTetromino.value.y += 1
+      } else {
+        currentTetromino.value.isGrounded = true
+      }
+
+      dropTimer.value = 0
     }
 
-    dropTimer.value = 0
+    if (currentTetromino.value.isGrounded) {
+      currentTetromino.value.lockTime += delta
+
+      if (currentTetromino.value.lockTime >= 0.5) {
+        currentTetromino.value = reactive(getNewTetromino())
+        dropTimer.value = 0
+      }
+    } else {
+      currentTetromino.value.lockTime = 0
+    }
   }
 })
 </script>

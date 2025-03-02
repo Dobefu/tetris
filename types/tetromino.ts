@@ -6,6 +6,7 @@ export interface Tetromino {
   type: TetrominoTypes
   rotation: number
   isGrounded: boolean
+  lockTime: number
   color: string
   cells: Vector3
 }
