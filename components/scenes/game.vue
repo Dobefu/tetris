@@ -1,24 +1,14 @@
 <script setup lang="ts">
 import type { Reactive } from 'vue'
 import type { Tetromino } from '~/types/tetromino'
-import type { TetrominoType } from '~/types/tetromino-type'
 
 let currentTetromino: Reactive<Tetromino> | undefined
 const dropTimer = shallowRef(0)
 
-function getNewTetromino() {
-  currentTetromino = reactive({
-    x: 3,
-    y: 19,
-    type: 'I' as TetrominoType,
-    rotation: 0,
-  })
-}
-
 const { onBeforeRender } = useLoop()
 
 onMounted(() => {
-  getNewTetromino()
+  currentTetromino = reactive(getNewTetromino())
 })
 
 onBeforeRender(({ delta }) => {
