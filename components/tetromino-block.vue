@@ -4,7 +4,6 @@ withDefaults(
     color: string
     position?: Vector3
     isGhost?: boolean
-    isVisible?: boolean
     texture: Awaited<ReturnType<typeof useTexture>>
   }>(),
   { position: [0, 0, 0], isVisible: true },
@@ -13,7 +12,6 @@ withDefaults(
 
 <template>
   <TresMesh
-    v-if="isVisible"
     :cast-shadow="!isGhost"
     :receive-shadow="!isGhost"
     :position="[position[0] - 5 + 0.5, -position[1] + 30 + 0.5, position[2]]"
