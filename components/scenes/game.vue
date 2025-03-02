@@ -4,7 +4,7 @@ import type { Tetromino } from '~/types/tetromino'
 
 let currentTetromino: Reactive<Tetromino> | undefined
 const dropTimer = shallowRef(0)
-const board = Array.from({ length: 40 }, () =>
+const board: (number | null)[][] = Array.from({ length: 40 }, () =>
   Array.from({ length: 10 }, () => null),
 )
 

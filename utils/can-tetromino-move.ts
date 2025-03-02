@@ -4,7 +4,7 @@ export function canTetrominoMove(
   tetromino: Tetromino,
   deltaX: number,
   deltaY: number,
-  board: number[][],
+  board: (number | null)[][],
 ) {
   if (!tetromino) {
     return false
