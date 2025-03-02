@@ -23,20 +23,28 @@ function moveCurrentTetromino(deltaX: number, deltaY: number) {
   currentTetromino.value.y += deltaY
   currentTetromino.value.lockTime = 0
 
-  if (canTetrominoMove(currentTetromino.value, 0, 1, board)) {
+  if (canTetrominoMove(currentTetromino.value, deltaX, deltaY, board)) {
+    if (currentTetromino.value.isGrounded === true) {
+      dropTimer.value = 1
+    }
+
     currentTetromino.value.isGrounded = false
-    dropTimer.value = 1
   }
 }
 
 function rotateCurrentTetromino() {
   const newRotation = (currentTetromino.value.rotation + 1) % 4
-
-  currentTetromino.value.rotation = newRotation
-  currentTetromino.value.cells = [
+  const rotatedTetromino = { ...currentTetromino.value }
+  rotatedTetromino.cells = [
     ...tetrominos[currentTetromino.value.type].cellCoords[newRotation],
   ]
-  // moveCurrentTetromino(0, 0)
+
+  if (canTetrominoMove(rotatedTetromino, 0, 0, board)) {
+    currentTetromino.value.rotation = newRotation
+    currentTetromino.value.cells = rotatedTetromino.cells
+
+    moveCurrentTetromino(0, 0)
+  }
 }
 
 const { onBeforeRender } = useLoop()
