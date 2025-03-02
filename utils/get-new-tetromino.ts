@@ -2,8 +2,16 @@ import type { Tetromino } from '~/types/tetromino'
 import type { TetrominoTypes } from '~/types/tetromino-types'
 import { tetrominos } from '~/objects/tetrominos'
 
-export function getNewTetromino(): Tetromino {
-  const type = 'I' as TetrominoTypes
+export function getNewTetromino(
+  nextPieces: { type: TetrominoTypes }[],
+): Tetromino {
+  if (nextPieces.length <= 5) {
+    getNextPieces(nextPieces)
+  }
+
+  const nextPiece = nextPieces.shift()
+  const type = nextPiece!.type
+
   return {
     x: 3,
     y: 19,
