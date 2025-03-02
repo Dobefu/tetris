@@ -93,6 +93,14 @@ onBeforeRender(({ delta }) => {
     if (isKeyDown('ArrowDown')) {
       dropTimer.value += 0.25
     }
+
+    if (isKeyDown(' ')) {
+      while (canTetrominoMove(currentTetromino.value, 0, 1, board)) {
+        currentTetromino.value.y += 1
+      }
+
+      dropTimer.value = 1
+    }
   }
 })
 </script>
