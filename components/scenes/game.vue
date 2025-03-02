@@ -55,7 +55,7 @@ onBeforeRender(({ delta }) => {
     v-if="currentTetromino"
     :position="[
       currentTetromino.x - 5 + 0.5,
-      -currentTetromino.y + 30 + 0.5,
+      -currentTetromino.y + 30 + 0.5 - dropTimer,
       0,
     ]"
     :type="currentTetromino.type"
