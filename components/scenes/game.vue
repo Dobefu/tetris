@@ -80,6 +80,7 @@ onBeforeRender(({ delta }) => {
       if (moveTimerRight <= 0) {
         if (canTetrominoMove(currentTetromino.value, 1, 0, board)) {
           currentTetromino.value.x += 1
+          currentTetromino.value.lockTime = 0
         }
 
         moveTimerRight = 0.2
@@ -97,6 +98,7 @@ onBeforeRender(({ delta }) => {
     if (isKeyDown(' ')) {
       while (canTetrominoMove(currentTetromino.value, 0, 1, board)) {
         currentTetromino.value.y += 1
+        currentTetromino.value.lockTime = 0
       }
 
       dropTimer.value = 1
