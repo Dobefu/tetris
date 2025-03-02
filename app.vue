@@ -5,6 +5,12 @@
     window-size
     render-mode="on-demand"
   >
-    <ScenesGame />
+    <Suspense>
+      <ScenesGame />
+
+      <template #fallback>
+        <TresPerspectiveCamera />
+      </template>
+    </Suspense>
   </TresCanvas>
 </template>

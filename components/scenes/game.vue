@@ -4,6 +4,11 @@ import type { Tetromino } from '~/types/tetromino'
 import type { TetrominoTypes } from '~/types/tetromino-types'
 import { tetrominos } from '~/objects/tetrominos'
 
+const texture = (await useTexture({
+  map: '/tetromino-block.png',
+  normalMap: '/tetromino-block_normal.png',
+})) as unknown as Awaited<ReturnType<typeof useTexture>>
+
 const { isKeyDown, isKeyPressed } = useControls()
 let moveTimerLeft = 0
 let moveTimerRight = 0
@@ -235,31 +240,32 @@ onBeforeRender(({ delta }) => {
 
   <Board />
 
-  <Suspense>
-    <TresGroup name="Fallen tetrominos">
-      <template v-for="(boardRow, y) of board" :key="y">
-        <template v-for="(_, x) of boardRow" :key="x">
-          <TetrominoBlock
-            :is-visible="!!board[y][x].value"
-            :color="
-              board[y][x]?.value ? tetrominos[board[y][x].value].color : ''
-            "
-            :position="[x, y + 1, 0]"
-          />
-        </template>
+  <TresGroup name="Fallen tetrominos">
+    <template v-for="(boardRow, y) of board" :key="y">
+      <template v-for="(_, x) of boardRow" :key="x">
+        <TetrominoBlock
+          :is-visible="!!board[y][x].value"
+          :color="board[y][x]?.value ? tetrominos[board[y][x].value].color : ''"
+          :position="[x, y + 1, 0]"
+          :texture="texture"
+        />
       </template>
-    </TresGroup>
-  </Suspense>
+    </template>
+  </TresGroup>
 
   <Tetromino
     name="Current tetromino"
     :tetromino="currentTetromino"
     :delta-y="currentTetromino.isGrounded ? 1 : dropTimer"
+    :texture="texture"
   />
 
-  <Tetromino name="Ghost tetromino" :tetromino="ghostTetromino" is-ghost />
+  <Tetromino
+    name="Ghost tetromino"
+    :tetromino="ghostTetromino"
+    is-ghost
+    :texture="texture"
+  />
 
-  <Suspense>
-    <ScenesGameOver v-if="isGameOver" />
-  </Suspense>
+  <ScenesGameOver v-if="isGameOver" />
 </template>

@@ -5,14 +5,10 @@ withDefaults(
     position?: Vector3
     isGhost?: boolean
     isVisible?: boolean
+    texture: Awaited<ReturnType<typeof useTexture>>
   }>(),
   { position: [0, 0, 0], isVisible: true },
 )
-
-const texture = await useTexture({
-  map: '/tetromino-block.png',
-  normalMap: '/tetromino-block_normal.png',
-})
 </script>
 
 <template>
