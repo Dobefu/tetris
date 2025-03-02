@@ -7,7 +7,7 @@ import { tetrominos } from '~/objects/tetrominos'
 const currentTetromino: ShallowRef<Reactive<Tetromino>> = shallowRef(
   reactive(getNewTetromino()),
 )
-const dropTimer = shallowRef(0)
+const dropTimer = shallowRef(1)
 const board: ShallowRef<TetrominoTypes | null>[][] = Array.from(
   { length: 40 },
   () => Array.from({ length: 10 }, () => shallowRef(null)),
@@ -40,7 +40,10 @@ onBeforeRender(({ delta }) => {
         }
 
         currentTetromino.value = reactive(getNewTetromino())
-        dropTimer.value = 0
+
+        if (!canTetrominoMove(currentTetromino.value, 0, 1, board)) {
+          currentTetromino.value.isGrounded = true
+        }
       }
     } else {
       currentTetromino.value.lockTime = 0
