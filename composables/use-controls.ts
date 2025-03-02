@@ -1,13 +1,21 @@
 export default function () {
-  const inputs: Record<string, boolean> = reactive({})
-  const inputsPressed: Record<string, boolean> = reactive({})
-  const inputsWerePressed: Record<string, boolean> = reactive({})
+  const inputs: Record<string, boolean> = {}
+  const inputsPressed: Record<string, boolean> = {}
+  const inputsWerePressed: Record<string, boolean> = {}
 
   useEventListener('keydown', handleKeyDown)
   useEventListener('keyup', handleKeyUp)
 
+  requestAnimationFrame(updatePressedKeys)
+
   function handleKeyDown(event: KeyboardEvent) {
-    if (event.key !== 'F5' && event.key !== 'F12') {
+    if (
+      !(
+        event.key === 'F5' ||
+        event.key === 'F12' ||
+        (event.key === 'r' && event.metaKey)
+      )
+    ) {
       event.preventDefault()
     }
 
@@ -23,6 +31,18 @@ export default function () {
 
     inputs[key] = false
     inputsPressed[key] = false
+  }
+
+  function updatePressedKeys() {
+    for (const key in inputs) {
+      if (inputs[key] && !inputsWerePressed[key]) {
+        inputsWerePressed[key] = true
+      } else if (!inputs[key] && inputsWerePressed[key]) {
+        inputsWerePressed[key] = false
+      }
+    }
+
+    requestAnimationFrame(updatePressedKeys)
   }
 
   const isKeyDown = (key: string) => {
