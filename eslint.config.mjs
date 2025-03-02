@@ -16,6 +16,7 @@ export default withNuxt(
         // These rules conflict with Prettier.
         'antfu/consistent-list-newline': 'off',
         'style/operator-linebreak': 'off',
+        'style/brace-style': 'off',
       },
     },
   ),
