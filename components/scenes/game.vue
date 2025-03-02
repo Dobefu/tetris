@@ -31,7 +31,6 @@ onBeforeRender(({ delta }) => {
 
 <template>
   <TresPerspectiveCamera :position="[0, 0, 50]" :look-at="[0, 0, 0]" />
-  <OrbitControls />
 
   <TresAmbientLight :intensity="0.25" />
   <TresDirectionalLight
