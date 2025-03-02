@@ -9,14 +9,25 @@ let moveTimerLeft = 0
 let moveTimerRight = 0
 
 const isGameOver = shallowRef(false)
+const nextPieces: { type: TetrominoTypes }[] = []
 const currentTetromino: ShallowRef<Reactive<Tetromino>> = shallowRef(
-  reactive(getNewTetromino()),
+  reactive(getNewTetromino(nextPieces)),
 )
 const dropTimer = shallowRef(1)
 const board: ShallowRef<TetrominoTypes | null>[][] = Array.from(
   { length: 40 },
   () => Array.from({ length: 10 }, () => shallowRef(null)),
 )
+
+const ghostTetromino = computed(() => {
+  const tetromino = { ...currentTetromino.value }
+
+  while (canTetrominoMove(tetromino, 0, 0, board)) {
+    tetromino.y += 1
+  }
+
+  return tetromino
+})
 
 function moveCurrentTetromino(deltaX: number, deltaY: number) {
   currentTetromino.value.x += deltaX
@@ -106,7 +117,7 @@ onBeforeRender(({ delta }) => {
           ].value = currentTetromino.value.type as TetrominoTypes
         }
 
-        currentTetromino.value = reactive(getNewTetromino())
+        currentTetromino.value = reactive(getNewTetromino(nextPieces))
 
         if (!canTetrominoMove(currentTetromino.value, 0, 1, board)) {
           currentTetromino.value.isGrounded = true
@@ -202,11 +213,12 @@ onBeforeRender(({ delta }) => {
   </Suspense>
 
   <Tetromino
-    v-if="currentTetromino"
     name="Current tetromino"
     :tetromino="currentTetromino"
     :delta-y="currentTetromino.isGrounded ? 1 : dropTimer"
   />
+
+  <Tetromino name="Ghost tetromino" :tetromino="ghostTetromino" is-ghost />
 
   <Suspense>
     <ScenesGameOver v-if="isGameOver" />

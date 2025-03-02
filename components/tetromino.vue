@@ -3,8 +3,9 @@ import type { Tetromino } from '~/types/tetromino'
 
 withDefaults(
   defineProps<{
-    tetromino: Tetromino
     deltaY?: number
+    isGhost?: boolean
+    tetromino: Tetromino
   }>(),
   { deltaY: 0 },
 )
@@ -16,8 +17,9 @@ withDefaults(
       <TetrominoBlock
         v-for="cellPosition in tetromino.cells"
         :key="cellPosition"
-        :position="cellPosition"
         :color="tetromino.color"
+        :position="cellPosition"
+        :is-ghost="isGhost"
       />
     </Suspense>
   </TresGroup>
