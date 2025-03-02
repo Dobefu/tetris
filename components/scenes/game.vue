@@ -4,6 +4,9 @@ import type { Tetromino } from '~/types/tetromino'
 
 let currentTetromino: Reactive<Tetromino> | undefined
 const dropTimer = shallowRef(0)
+const board = Array.from({ length: 40 }, () =>
+  Array.from({ length: 10 }, () => null),
+)
 
 const { onBeforeRender } = useLoop()
 
@@ -15,7 +18,7 @@ onBeforeRender(({ delta }) => {
   dropTimer.value += delta
 
   if (dropTimer.value >= 1 && currentTetromino) {
-    if (canTetrominoMove(currentTetromino, 0, 1)) {
+    if (canTetrominoMove(currentTetromino, 0, 1, board)) {
       currentTetromino.y += 1
     }
 
