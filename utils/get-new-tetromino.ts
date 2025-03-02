@@ -5,7 +5,7 @@ import { tetrominos } from '~/objects/tetrominos'
 export function getNewTetromino(): Tetromino {
   return {
     x: 3,
-    y: 19,
+    y: 38,
     type: 'I' as TetrominoTypes,
     rotation: 0,
     isGrounded: false,

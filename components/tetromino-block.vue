@@ -3,8 +3,9 @@ withDefaults(
   defineProps<{
     color: string
     position?: Vector3
+    isVisible?: boolean
   }>(),
-  { position: [0, 0, 0] },
+  { position: [0, 0, 0], isVisible: true },
 )
 
 const texture = await useTexture({
@@ -15,6 +16,7 @@ const texture = await useTexture({
 
 <template>
   <TresMesh
+    v-if="isVisible"
     cast-shadow
     receive-shadow
     :position="[position[0] - 5 + 0.5, -position[1] + 30 + 0.5, position[2]]"

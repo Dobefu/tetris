@@ -20,7 +20,8 @@ export function canTetrominoMove(
       newX < 0 ||
       newX >= board[0].length ||
       newY < 0 ||
-      newY >= board.length
+      newY >= board.length ||
+      board[newY][newX].value
     ) {
       return false
     }

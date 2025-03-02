@@ -72,8 +72,10 @@ onBeforeRender(({ delta }) => {
       <template v-for="(boardRow, y) of board" :key="y">
         <template v-for="(_, x) of boardRow" :key="x">
           <TetrominoBlock
-            v-if="board[y][x].value"
-            :color="tetrominos[board[y][x].value].color"
+            :is-visible="!!board[y][x].value"
+            :color="
+              board[y][x]?.value ? tetrominos[board[y][x].value].color : ''
+            "
             :position="[x, y + 1, 0]"
           />
         </template>
