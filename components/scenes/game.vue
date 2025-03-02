@@ -44,6 +44,10 @@ onBeforeRender(({ delta }) => {
         if (!canTetrominoMove(currentTetromino.value, 0, 1, board)) {
           currentTetromino.value.isGrounded = true
         }
+
+        if (!canTetrominoMove(currentTetromino.value, 0, 0, board)) {
+          console.log('GAME OVER')
+        }
       }
     } else {
       currentTetromino.value.lockTime = 0
