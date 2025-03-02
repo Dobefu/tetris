@@ -78,6 +78,10 @@ function mapInputs(key: string): string {
     case '3':
     case '7':
       return 'z'
+    case 'a':
+      return 'ArrowLeft'
+    case 'd':
+      return 'ArrowRight'
     case 'F1':
       return 'Escape'
     default:

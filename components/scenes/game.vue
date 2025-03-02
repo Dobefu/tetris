@@ -4,6 +4,10 @@ import type { Tetromino } from '~/types/tetromino'
 import type { TetrominoTypes } from '~/types/tetromino-types'
 import { tetrominos } from '~/objects/tetrominos'
 
+const { isKeyDown } = useControls()
+let moveTimerLeft = 0
+let moveTimerRight = 0
+
 const isGameOver = shallowRef(false)
 const currentTetromino: ShallowRef<Reactive<Tetromino>> = shallowRef(
   reactive(getNewTetromino()),
@@ -56,6 +60,34 @@ onBeforeRender(({ delta }) => {
       }
     } else {
       currentTetromino.value.lockTime = 0
+    }
+
+    if (isKeyDown('ArrowLeft')) {
+      if (moveTimerLeft <= 0) {
+        if (canTetrominoMove(currentTetromino.value, -1, 0, board)) {
+          currentTetromino.value.x -= 1
+        }
+
+        moveTimerLeft = 0.2
+      } else {
+        moveTimerLeft -= delta
+      }
+    } else {
+      moveTimerLeft = 0
+    }
+
+    if (isKeyDown('ArrowRight')) {
+      if (moveTimerRight <= 0) {
+        if (canTetrominoMove(currentTetromino.value, 1, 0, board)) {
+          currentTetromino.value.x += 1
+        }
+
+        moveTimerRight = 0.2
+      } else {
+        moveTimerRight -= delta
+      }
+    } else {
+      moveTimerRight = 0
     }
   }
 })
