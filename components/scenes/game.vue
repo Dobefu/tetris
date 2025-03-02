@@ -4,6 +4,7 @@ import type { Tetromino } from '~/types/tetromino'
 import type { TetrominoTypes } from '~/types/tetromino-types'
 import { tetrominos } from '~/objects/tetrominos'
 
+const isGameOver = shallowRef(false)
 const currentTetromino: ShallowRef<Reactive<Tetromino>> = shallowRef(
   reactive(getNewTetromino()),
 )
@@ -16,6 +17,10 @@ const board: ShallowRef<TetrominoTypes | null>[][] = Array.from(
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ delta }) => {
+  if (isGameOver.value) {
+    return
+  }
+
   dropTimer.value += delta
 
   if (currentTetromino.value) {
@@ -46,7 +51,7 @@ onBeforeRender(({ delta }) => {
         }
 
         if (!canTetrominoMove(currentTetromino.value, 0, 0, board)) {
-          console.log('GAME OVER')
+          isGameOver.value = true
         }
       }
     } else {
@@ -96,4 +101,8 @@ onBeforeRender(({ delta }) => {
     :tetromino="currentTetromino"
     :delta-y="currentTetromino.isGrounded ? 1 : dropTimer"
   />
+
+  <Suspense>
+    <ScenesGameOver v-if="isGameOver" />
+  </Suspense>
 </template>
