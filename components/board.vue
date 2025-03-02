@@ -26,16 +26,6 @@
     <TresMeshPhongMaterial color="#999" />
   </TresMesh>
 
-  <!-- <TresMesh -->
-  <!--   cast-shadow -->
-  <!--   receive-shadow -->
-  <!--   :scale="[11, 0.5, 1]" -->
-  <!--   :position="[0, 10.25, 0]" -->
-  <!-- > -->
-  <!--   <TresBoxGeometry /> -->
-  <!--   <TresMeshPhongMaterial color="#999" /> -->
-  <!-- </TresMesh> -->
-
   <TresMesh
     cast-shadow
     receive-shadow
