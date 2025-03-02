@@ -87,6 +87,43 @@ function rotateCurrentTetromino() {
   }
 }
 
+function clearRows(clearedRows: number = 0) {
+  // Early return when 4 rows have been cleared already.
+  if (clearedRows === 4) {
+    return
+  }
+
+  for (let y = board.length - 1; y >= 0; y--) {
+    let isRowFull = true
+    let isRowEmpty = true
+
+    for (const cell of board[y]) {
+      if (!cell.value) {
+        isRowFull = false
+        break
+      }
+
+      isRowEmpty = false
+    }
+
+    // Early return when there's a row with no cells.
+    // It should be impossible for any cells to be above this.
+    if (isRowEmpty) {
+      return
+    }
+
+    if (isRowFull) {
+      for (let yy = y; yy > 0; yy--) {
+        for (const x in board[yy]) {
+          board[yy][x].value = board[yy - 1][x].value
+        }
+      }
+
+      clearRows(clearedRows)
+    }
+  }
+}
+
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ delta }) => {
@@ -116,6 +153,8 @@ onBeforeRender(({ delta }) => {
             currentTetromino.value.x + cellCoords[0]
           ].value = currentTetromino.value.type as TetrominoTypes
         }
+
+        clearRows()
 
         currentTetromino.value = reactive(getNewTetromino(nextPieces))
 
