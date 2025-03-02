@@ -44,5 +44,9 @@ onBeforeRender(({ delta }) => {
   <Board />
 
   <!-- Current tetromino -->
-  <Tetromino v-if="currentTetromino" :tetromino="currentTetromino" />
+  <Tetromino
+    v-if="currentTetromino"
+    :tetromino="currentTetromino"
+    :delta-y="dropTimer"
+  />
 </template>
